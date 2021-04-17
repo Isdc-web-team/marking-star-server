@@ -28,12 +28,12 @@ app.use(middlewares);
 // Import Routes
 const serviceRoutes = require('./routes/service');
 const reviewRoutes = require('./routes/review');
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/auth');
 
 // Routes Api
 app.use('/api/services', serviceRoutes);
 app.use('/api/reviews', reviewRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/auth', userRoutes);
 
 app.get('/', (req, res) => {
     res.send({
@@ -65,6 +65,7 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 4000;
 const environment = app.get('env');
+console.log(environment);
 
 // Server Configuration && Database Connection
 app.listen(PORT, () => {
@@ -72,7 +73,19 @@ app.listen(PORT, () => {
         `SERVER IS RUNNING ON PORT ${PORT} AND SERVER ON MODE ${environment}`
     );
     if (process.env.NODE_ENV === 'production') {
-        console.log('Connected to MongoDB Live  Database');
+        mongoose.connect(
+            `mongodb+srv://sujoni:sujon1321@marking-star.bbgo7.mongodb.net/marking-star?retryWrites=true&w=majority`,
+            {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useFindAndModify: false,
+                useCreateIndex: true,
+            }
+        );
+        const db = mongoose.connection;
+        db.on('connected', () => {
+            console.log(`Connected to MongoDB Live ${db.name} Database`);
+        });
     } else {
         mongoose
             .connect('mongodb://localhost:27017/marking-star', {
