@@ -19,7 +19,7 @@ const middlewares = [
     cors(),
     express.urlencoded({ extended: true }),
     express.static(path.join(__dirname, 'uploads')),
-    express.json(),
+    express.json({ limit: '15mb' }),
     fileUpload(),
 ];
 
@@ -63,7 +63,7 @@ app.use((err, req, res, next) => {
     }
 });
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 const environment = app.get('env');
 console.log(environment);
 

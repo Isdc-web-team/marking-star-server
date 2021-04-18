@@ -26,6 +26,8 @@ exports.getService = async (req, res, next) => {
 
 exports.createService = async (req, res, next) => {
     try {
+        console.log(req.body);
+
         const errors = validationResult(req).formatWith((err) => err.msg);
         if (!errors.isEmpty()) {
             return res.status(400).send(errors.mapped());

@@ -16,7 +16,6 @@ const reviewSchema = new Schema({
     },
     image: {
         type: String,
-        required: true,
     },
 });
 

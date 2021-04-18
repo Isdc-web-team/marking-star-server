@@ -56,11 +56,7 @@ const AddProduct = ({ updateProduct, isUpdate }) => {
         }
     };
 
-    return (
-        <>
-            <ToastContainer />
-        </>
-    );
+    return <></>;
 };
 
 export default AddProduct;
